@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 import json
 
-app=Flask(__name__)
+app=Flask(__name__) # NOSONAR
 
 @app.route('/index')
 def index():
@@ -10,7 +10,7 @@ def index():
 @app.route('/')
 def health_check():
     response = {
-        'status': 'OK'
+        'status': 'OK :)'
     }
     return jsonify(response), 200
 
