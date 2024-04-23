@@ -22,7 +22,7 @@ def generate_uuid():
 # DB_DATABASE = os.environ.get('DB_DATABASE')
 # DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
-DATABASE_URI = os.environ['DATABASE_URL'] 
+DATABASE_URI = os.getenv('DATABASE_URL', None)
 if DATABASE_URI is None or DATABASE_URI == '':
     new_uuid = generate_uuid()
     DATABASE_URI = f"sqlite:///test_event_{new_uuid}.db"
