@@ -130,4 +130,20 @@ class TestVistaEvento(unittest.TestCase):
         response_2 = self.app.delete('/eventos/noexiste')
         self.assertEqual(response_2.status_code, 404)
         self.assertEqual(json.loads(response_2.data)['message'], "Evento no encontrado")
+    
+    # def test_get_evento(self):
+    #     response = self.app.get('/eventos/noexiste')
+    #     self.assertEqual(response.status_code, 404)
+    #     self.assertEqual(json.loads(response.data), {"message": "Evento no encontrado", "code": 404})
+    #     response = self.app.post('/eventos', json={
+    #         "event_name": "Evento de prueba",
+    #         "event_description": "Descripcion del evento de prueba",
+    #         "event_location": "Ubicacion del evento de prueba",
+    #         "event_type": "Tipo de evento de prueba",
+    #         "link": "https://eventodeprueba.com"
+    #     })
+    #     evento_id = json.loads(response.data)['content']['id']
+    #     response = self.app.get(f'/eventos/{evento_id}')
+    #     self.assertEqual(response.status_code, 200)
+    #     self.app.delete(f'/eventos/{evento_id}')
 

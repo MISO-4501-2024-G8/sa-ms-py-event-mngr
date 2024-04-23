@@ -8,6 +8,7 @@ import os
 import requests
 import uuid
 
+evento_no_encontrado = "Evento no encontrado"
 
 evento_schema = EventoSchema()
 
@@ -38,11 +39,17 @@ class VistaEvento(Resource):
         return {"message": "Evento creado", "code": 201, "content": evento_schema.dump(evento)}, 201
 
 class VistaEventoID(Resource):
+    def get(self, evento_id):
+        evento = Evento.query.filter_by(id=evento_id).first()
+        if evento is None:
+            return {"message": evento_no_encontrado, "code": 404}, 404
+        return {"message": "OK", "content": evento_schema.dump(evento), "code": 200}, 200
+
     def put(self, evento_id):
         data = request.get_json()
         evento = Evento.query.filter_by(id=evento_id).first()
         if evento is None:
-            return {"message": "Evento no encontrado", "code": 404}, 404
+            return {"message": evento_no_encontrado, "code": 404}, 404
         
         # Cambios de campos
         if evento.event_name != data['event_name']:
@@ -63,7 +70,7 @@ class VistaEventoID(Resource):
     def delete(self, evento_id):
         evento = Evento.query.filter_by(id=evento_id).first()
         if evento is None:
-            return {"message": "Evento no encontrado", "code": 404}, 404
+            return {"message": evento_no_encontrado, "code": 404}, 404
         db.session.delete(evento)
         db.session.commit()
         return {"message": "Evento eliminado", "code": 200, "content": evento_schema.dump(evento)}, 200
