@@ -84,6 +84,26 @@ class TestVistaEvento(unittest.TestCase):
         self.assertIsNotNone(json.loads(response.data)['content']['id'])
         self.assertIsNotNone(json.loads(response.data)['content']['createdAt'])
         self.assertIsNotNone(json.loads(response.data)['content']['updatedAt'])
+        response_2 = self.app.put('/eventos/noexiste', json={
+            "event_name": "Evento de prueba 2",
+            "event_description": "Descripcion del evento de prueba 2",
+            "event_location": "Ubicacion del evento de prueba 2",
+            "event_type": "Tipo de evento de prueba 2",
+            "link": "https://eventodeprueba2.com"
+        })
+        self.assertEqual(response_2.status_code, 404)
+        self.assertEqual(json.loads(response_2.data)['message'], "Evento no encontrado")
+
+        response_4 = self.app.put(f'/eventos/{evento_id}', json={
+            "event_name": "Evento de prueba 2",
+            "event_description": "Descripcion del evento de prueba 2",
+            "event_location": "Ubicacion del evento de prueba 2",
+            "event_type": "Tipo de evento de prueba 2",
+            "link": "https://eventodeprueba2.com"
+        })
+        self.assertEqual(response_4.status_code, 200)
+        self.assertEqual(json.loads(response_4.data)['message'], "Evento actualizado")
+
     
     def test_delete_eventos(self):
         response = self.app.post('/eventos', json={
@@ -106,4 +126,7 @@ class TestVistaEvento(unittest.TestCase):
         self.assertIsNotNone(json.loads(response.data)['content']['id'])
         self.assertIsNotNone(json.loads(response.data)['content']['createdAt'])
         self.assertIsNotNone(json.loads(response.data)['content']['updatedAt'])
+        response_2 = self.app.delete('/eventos/noexiste')
+        self.assertEqual(response_2.status_code, 404)
+        self.assertEqual(json.loads(response_2.data)['message'], "Evento no encontrado")
 

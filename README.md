@@ -41,7 +41,9 @@ Generar imagen de docker
 docker build -t event-mngr .
 ```
 
-Correr imagen de docker
+Correr imagen de docker local
 ```
+docker run -e DATABASE_URL=mysql+pymysql://admin:123456789@databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com/db_event -p 5001:5001 event-mngr
+
 docker run -p 5001:5001 event-mngr
 ```
