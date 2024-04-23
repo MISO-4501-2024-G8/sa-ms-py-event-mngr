@@ -9,11 +9,12 @@ from vistas import VistaHealthCheck, VistaEvento
 
 
 #export DB_HOST=databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com DB_USER=admin DB_DATABASE=db_event DB_PASSWORD=123456789
-
-DB_HOST = os.environ.get('DB_HOST')
-DB_USER = os.environ.get('DB_USER')
-DB_DATABASE = os.environ.get('DB_DATABASE')
-DB_PASSWORD = os.environ.get('DB_PASSWORD')
+#export DATABASE_URL=mysql+pymysql://admin:123456789@databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com/db_event
+#export DATABASE_URL=
+# DB_HOST = os.environ.get('DB_HOST')
+# DB_USER = os.environ.get('DB_USER')
+# DB_DATABASE = os.environ.get('DB_DATABASE')
+# DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
 DATABASE_URI = os.environ['DATABASE_URL'] 
 if DATABASE_URI is None or DATABASE_URI == '':

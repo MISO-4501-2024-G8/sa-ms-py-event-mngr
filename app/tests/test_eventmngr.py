@@ -14,7 +14,7 @@ from flask_restful import Resource
 from modelos.modelos import db
 from urllib.parse import urlparse
 
-os.environ['DATABASE_URL'] = 'sqlite:///eventm.db'
+os.environ['DATABASE_URL'] = 'sqlite:///test_event.db'
 
 class TestVistaHealthCheck(unittest.TestCase):
     def setUp(self):
@@ -37,4 +37,24 @@ class TestVistaEvento(unittest.TestCase):
         response = self.app.get('/eventos')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.data), {"message": "OK", "content": [], "code": 200})
+    
+    def test_post_eventos(self):
+        response = self.app.post('/eventos', json={
+            "event_name": "Evento de prueba",
+            "event_description": "Descripcion del evento de prueba",
+            "event_location": "Ubicacion del evento de prueba",
+            "event_type": "Tipo de evento de prueba",
+            "link": "https://eventodeprueba.com"
+        })
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json.loads(response.data)['message'], "Evento creado")
+        self.assertEqual(json.loads(response.data)['code'], 201)
+        self.assertEqual(json.loads(response.data)['content']['event_name'], "Evento de prueba")
+        self.assertEqual(json.loads(response.data)['content']['event_description'], "Descripcion del evento de prueba")
+        self.assertEqual(json.loads(response.data)['content']['event_location'], "Ubicacion del evento de prueba")
+        self.assertEqual(json.loads(response.data)['content']['event_type'], "Tipo de evento de prueba")
+        self.assertEqual(json.loads(response.data)['content']['link'], "https://eventodeprueba.com")
+        self.assertIsNotNone(json.loads(response.data)['content']['id'])
+        self.assertIsNotNone(json.loads(response.data)['content']['createdAt'])
+        self.assertIsNotNone(json.loads(response.data)['content']['updatedAt'])
 

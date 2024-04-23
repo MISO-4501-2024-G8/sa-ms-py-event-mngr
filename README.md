@@ -21,18 +21,19 @@ instalar dependencias del archivo requirements.txt
 pip3 install -r requirements.txt
 ```
 
-correr tests con pytest
-```
-pytest --cov=app/ --cov-report xml --junitxml=pytest-report.xml
-coverage xml
-coverage html -d coverage_report
-```
-
 correr flask
 ```
 export FLASK_APP=app/app.py
 export DATABASE_URL=mysql+pymysql://admin:123456789@databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com/db_event
 flask run -p 5001
+```
+
+correr tests con pytest
+```
+export DATABASE_URL=
+pytest --cov=app/ --cov-report xml --junitxml=pytest-report.xml
+coverage xml
+coverage html -d coverage_report
 ```
 
 Generar imagen de docker
