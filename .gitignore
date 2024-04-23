@@ -14,3 +14,7 @@ pytest-report.xml
 
 /.vscode
 .DS_Store
+
+
+**/instance/**
+**/instance
