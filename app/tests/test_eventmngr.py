@@ -14,6 +14,7 @@ from flask_restful import Resource
 from modelos.modelos import db
 from urllib.parse import urlparse
 
+os.environ['DATABASE_URL'] = 'sqlite:///test_event.db'
 
 class TestVistaHealthCheck(unittest.TestCase):
     def setUp(self):
