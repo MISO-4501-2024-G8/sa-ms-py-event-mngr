@@ -5,7 +5,13 @@ from flask_restful import Api
 from datetime import timedelta
 import os
 from modelos.modelos import db
-from vistas import VistaHealthCheck, VistaEvento
+from vistas import VistaHealthCheck, VistaEvento, VistaEventoID
+import uuid
+
+def generate_uuid():
+    uid = uuid.uuid4()
+    parts = str(uid).split('-')
+    return parts[0]
 
 
 #export DB_HOST=databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com DB_USER=admin DB_DATABASE=db_event DB_PASSWORD=123456789
@@ -18,7 +24,8 @@ from vistas import VistaHealthCheck, VistaEvento
 
 DATABASE_URI = os.environ['DATABASE_URL'] 
 if DATABASE_URI is None or DATABASE_URI == '':
-    DATABASE_URI = 'sqlite:///test_event.db'
+    new_uuid = generate_uuid()
+    DATABASE_URI = f"sqlite:///test_event_{new_uuid}.db"
 
 print(' * DATABASE_URI: ')
 print(DATABASE_URI)
@@ -40,6 +47,8 @@ cors = CORS(app)
 api = Api(app)
 api.add_resource(VistaHealthCheck, '/')
 api.add_resource(VistaEvento, '/eventos')
+api.add_resource(VistaEventoID, '/eventos/<string:evento_id>')
+
 
 jwt = JWTManager(app)
 

@@ -36,3 +36,34 @@ class VistaEvento(Resource):
         db.session.add(evento)
         db.session.commit()
         return {"message": "Evento creado", "code": 201, "content": evento_schema.dump(evento)}, 201
+
+class VistaEventoID(Resource):
+    def put(self, evento_id):
+        data = request.get_json()
+        evento = Evento.query.filter_by(id=evento_id).first()
+        if evento is None:
+            return {"message": "Evento no encontrado", "code": 404}, 404
+        
+        # Cambios de campos
+        if evento.event_name != data['event_name']:
+            evento.event_name = data['event_name']
+        if evento.event_description != data['event_description']:
+            evento.event_description = data['event_description']
+        if evento.event_location != data['event_location']:
+            evento.event_location = data['event_location']
+        if evento.event_type != data['event_type']:
+            evento.event_type = data['event_type']
+        if evento.link != data['link']:
+            evento.link = data['link']
+
+        evento.updatedAt = datetime.now()
+        db.session.commit()
+        return {"message": "Evento actualizado", "code": 200, "content": evento_schema.dump(evento)}, 200
+    
+    def delete(self, evento_id):
+        evento = Evento.query.filter_by(id=evento_id).first()
+        if evento is None:
+            return {"message": "Evento no encontrado", "code": 404}, 404
+        db.session.delete(evento)
+        db.session.commit()
+        return {"message": "Evento eliminado", "code": 200, "content": evento_schema.dump(evento)}, 200
