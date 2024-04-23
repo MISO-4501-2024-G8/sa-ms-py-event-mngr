@@ -31,7 +31,8 @@ coverage html -d coverage_report
 correr flask
 ```
 export FLASK_APP=app/app.py
-flask run
+export DATABASE_URL=mysql+pymysql://admin:123456789@databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com/db_event
+flask run -p 5001
 ```
 
 Generar imagen de docker
