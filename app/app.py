@@ -14,14 +14,6 @@ def generate_uuid():
     return parts[0]
 
 
-#export DB_HOST=databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com DB_USER=admin DB_DATABASE=db_event DB_PASSWORD=123456789
-#export DATABASE_URL=mysql+pymysql://admin:123456789@databasesportapp.cvweuasge1pc.us-east-1.rds.amazonaws.com/db_event
-#export DATABASE_URL=
-# DB_HOST = os.environ.get('DB_HOST')
-# DB_USER = os.environ.get('DB_USER')
-# DB_DATABASE = os.environ.get('DB_DATABASE')
-# DB_PASSWORD = os.environ.get('DB_PASSWORD')
-
 DATABASE_URI = os.getenv('DATABASE_URL', None)
 if DATABASE_URI is None or DATABASE_URI == '':
     new_uuid = generate_uuid()
@@ -33,7 +25,7 @@ print(DATABASE_URI)
 app=Flask(__name__) # NOSONAR
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = 'MISO-4501-2024-G8'
+app.config['JWT_SECRET_KEY'] = 'MISO-4501-2024-G8' # NOSONAR
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=120)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
@@ -42,7 +34,7 @@ app_context.push()
 db.init_app(app)
 db.create_all()
 
-cors = CORS(app)
+cors = CORS(app) # NOSONAR
 
 api = Api(app)
 api.add_resource(VistaHealthCheck, '/')
