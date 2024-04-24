@@ -12,6 +12,7 @@ class Evento(db.Model):
     event_description = db.Column(db.String(500))
     event_location = db.Column(db.String(255))
     event_type = db.Column(db.String(255))
+    sport = db.Column(db.String(255))
     link = db.Column(db.String(500))
     createdAt = db.Column(db.DateTime)
     updatedAt = db.Column(db.DateTime)
