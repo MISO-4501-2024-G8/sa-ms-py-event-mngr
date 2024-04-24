@@ -51,18 +51,30 @@ class VistaEventoID(Resource):
         if evento is None:
             return {"message": evento_no_encontrado, "code": 404}, 404
         
+        changes = 0
         # Cambios de campos
         if evento.event_name != data['event_name']:
             evento.event_name = data['event_name']
+            changes += 1
         if evento.event_description != data['event_description']:
             evento.event_description = data['event_description']
+            changes += 1
         if evento.event_location != data['event_location']:
             evento.event_location = data['event_location']
+            changes += 1
         if evento.event_type != data['event_type']:
             evento.event_type = data['event_type']
+            changes += 1
+        if evento.sport != data['sport']:
+            evento.sport = data['sport']
+            changes += 1
         if evento.link != data['link']:
             evento.link = data['link']
+            changes += 1
 
+        if changes == 0:
+            return {"message": "No hay cambios", "code": 200}, 200
+        
         evento.updatedAt = datetime.now()
         db.session.commit()
         return {"message": "Evento actualizado", "code": 200, "content": evento_schema.dump(evento)}, 200
