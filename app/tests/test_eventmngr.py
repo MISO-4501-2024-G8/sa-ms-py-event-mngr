@@ -43,6 +43,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba",
             "event_type": "Tipo de evento de prueba",
             "sport":"Atletismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba.com"
         })
         self.assertEqual(response.status_code, 201)
@@ -64,6 +65,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba",
             "event_type": "Tipo de evento de prueba",
             "sport":"Atletismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba.com"
         })
         evento_id = json.loads(response.data)['content']['id']
@@ -73,6 +75,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba 2",
             "event_type": "Tipo de evento de prueba 2",
             "sport":"Ciclismo",
+            "event_date": "2023-05-28 14:30:00",
             "link": "https://eventodeprueba2.com"
         })
         self.assertEqual(response.status_code, 200)
@@ -92,6 +95,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba 2",
             "event_type": "Tipo de evento de prueba 2",
             "sport":"Ciclismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba2.com"
         })
         self.assertEqual(response_2.status_code, 404)
@@ -103,6 +107,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba 2",
             "event_type": "Tipo de evento de prueba 2",
             "sport":"Atletismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba2.com"
         })
         self.assertEqual(response_4.status_code, 200)
@@ -114,6 +119,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba 2",
             "event_type": "Tipo de evento de prueba 2",
             "sport":"Atletismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba2.com"
         })
         self.assertEqual(response_5.status_code, 200)
@@ -127,6 +133,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba",
             "event_type": "Tipo de evento de prueba",
             "sport":"Atletismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba.com"
         })
         evento_id = json.loads(response.data)['content']['id']
@@ -156,6 +163,7 @@ class TestVistaEvento(unittest.TestCase):
             "event_location": "Ubicacion del evento de prueba",
             "event_type": "Tipo de evento de prueba",
             "sport":"Atletismo",
+            "event_date": "2024-05-28 14:30:00",
             "link": "https://eventodeprueba.com"
         })
         evento_id = json.loads(response.data)['content']['id']
