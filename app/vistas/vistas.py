@@ -9,8 +9,10 @@ import requests
 import uuid
 
 evento_no_encontrado = "Evento no encontrado"
+date_format = "%Y-%m-%d %H:%M:%S"
 
 evento_schema = EventoSchema()
+
 
 def generate_uuid():
     uid = uuid.uuid4()
@@ -30,6 +32,11 @@ class VistaEvento(Resource):
     
     def post(self):
         data = request.get_json()
+        if data['event_date'] is None:
+            data['event_date'] = datetime.now()
+        else:
+            data['event_date'] = datetime.strptime(data['event_date'], date_format)
+        
         data['id'] = generate_uuid()
         data['createdAt'] = datetime.now()
         data['updatedAt'] = datetime.now()
@@ -70,6 +77,9 @@ class VistaEventoID(Resource):
             changes += 1
         if evento.link != data['link']:
             evento.link = data['link']
+            changes += 1
+        if evento.event_date != datetime.strptime(data['event_date'], date_format):
+            evento.event_date = datetime.strptime(data['event_date'], date_format)
             changes += 1
 
         if changes == 0:
